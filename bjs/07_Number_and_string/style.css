@@ -3,7 +3,25 @@
     font-family: 'Share Tech Mono', monospace;
 }
 
+.card-body {
+    background-color: rgb(39, 39, 39);
+    border-radius: 5px;
+}
+
 .input-window {
     text-align: end;
     font-size: x-large;
+}
+
+.btn-outline-primary {
+    background-color: #007BFF;
+}
+
+.btn {
+    color: white;
+    border-color: black;
+}
+
+.btn-outline-danger {
+    background-color: #D94D5B;
 }

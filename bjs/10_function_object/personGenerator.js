@@ -35,6 +35,67 @@ const personGenerator = {
             "id_10": "Андрей"
         }
     }`,
+    firstNameFemaleJson: `{
+        "count": 10,
+        "list": {     
+            "id_1": "Александра",
+            "id_2": "Мария",
+            "id_3": "Светлана",
+            "id_4": "Анна",
+            "id_5": "Дарья",
+            "id_6": "Надежда",
+            "id_7": "Маргарита",
+            "id_8": "Диана",
+            "id_9": "Елизавета",
+            "id_10": "Алиса"
+        }
+    }`,
+    patronymicJson: `{
+        "count": 10,
+        "list": {     
+            "id_1": "Александров",
+            "id_2": "Максимов",
+            "id_3": "Иванов",
+            "id_4": "Артемов",
+            "id_5": "Дмитриев",
+            "id_6": "Никитов",
+            "id_7": "Михайлов",
+            "id_8": "Даниилов",
+            "id_9": "Егоров",
+            "id_10": "Андреев"
+        }
+    }`,
+    maleJobJson: `{
+        "count": 5,
+        "list": {
+            "id_1": "пожарный",
+            "id_2": "плотник",
+            "id_3": "слесарь",
+            "id_4": "солдат",
+            "id_5": "шахтёр"
+        }
+    }`,
+    femaleJobJson: `{
+        "count": 5,
+        "list": {
+            "id_1": "воспитатель",
+            "id_2": "стюардесса",
+            "id_3": "модель",
+            "id_4": "швея",
+            "id_5": "горничная"
+        }
+    }`,
+    jobJson: `{
+        "count": 5,
+        "list": {
+            "id_1": "врач",
+            "id_2": "программист",
+            "id_3": "педагог",
+            "id_4": "повар",
+            "id_5": "юрист"
+        }
+    }`,
+
 
     GENDER_MALE: 'Мужчина',
     GENDER_FEMALE: 'Женщина',
@@ -43,28 +104,143 @@ const personGenerator = {
 
     randomValue: function (json) {
         const obj = JSON.parse(json);
-        const prop = `id_${this.randomIntNumber(obj.count, 1)}`;  // this = personGenerator
+        const prop = `id_${this.randomIntNumber(obj.count, 1)}`; 
         return obj.list[prop];
     },
 
-    randomFirstName: function() {
+    randomFirstName: function () {
 
-        return this.randomValue(this.firstNameMaleJson);
+        if (this.person.gender === this.GENDER_MALE) {
+        
+            return this.randomValue(this.firstNameMaleJson);
 
+        } else {
+
+            return this.randomValue(this.firstNameFemaleJson);
+
+        }
     },
 
 
-     randomSurname: function() {
+     randomSurname: function () {
 
-        return this.randomValue(this.surnameJson);
+        if (this.person.gender === this.GENDER_MALE) {
+
+            return this.randomValue(this.surnameJson);
+
+        } else {
+
+            return this.randomValue(this.surnameJson)+'a'
+        
+        }
+    },
+
+    randomPatronymic: function () {
+
+        if (this.person.gender === this.GENDER_MALE) {
+
+            return this.randomValue(this.patronymicJson)+'ич';
+    
+        } else {
+    
+            return this.randomValue(this.patronymicJson)+'нa'
+            
+        }
+    },
+
+    randomGender: function () {
+
+        return this.randomIntNumber() === 1 ? this.GENDER_MALE : this.GENDER_FEMALE;
 
     },
 
+    randomDay: function () {
+        if (month === 2) {
+
+            return day = this.randomIntNumber(28, 1)
+     
+        } else if (month === 4 || month === 6 || month === 9 || month === 11) {
+     
+            return day = this.randomIntNumber(30, 1)
+     
+        } else {
+     
+            return day = this.randomIntNumber(31, 1)
+     
+        }
+    },
+
+    randomDateOfBirth: function () {
+        
+       
+        month = this.randomIntNumber(12, 1);
+        day = this.randomDay()
+        
+        switch (month) {
+            case 1:
+                month = 'января';
+                break;
+            case 2:
+                month = 'февраля';
+                break;
+            case 3:
+                month = 'марта';
+                break;
+            case 4:
+                month = 'апреля';
+                break;
+            case 5:
+                month = 'мая';
+                break;
+            case 6:
+                month = 'июня';
+                break;
+            case 7:
+                month = 'июля';
+                break;
+            case 8:
+                month = 'августа';
+                break;
+            case 9:
+                month = 'сенятбря';
+                break;
+            case 10:
+                month = 'октября';
+                break;
+            case 11:
+                month = 'ноября';
+                break;
+            case 12:
+                month = 'декабря';
+                break;
+        }
+        const year = this.randomIntNumber(1923, 2005);
+
+        return `${day} ${month} ${year}`
+
+    },
+
+    randomJob: function () {
+        if (this.person.gender === this.GENDER_MALE) {
+
+            return this.randomValue(this.randomIntNumber() === 1 ? this.maleJobJson : this.jobJson);
+    
+        } else {
+    
+            return this.randomValue(this.randomIntNumber() === 1 ? this.femaleJobJson : this.jobJson);
+            
+        }
+    },
 
     getPerson: function () {
         this.person = {};
-        // this.person.gender = this.randomGender();
+        this.person.gender = this.randomGender();
         this.person.firstName = this.randomFirstName();
+        this.person.surname = this.randomSurname();
+        this.person.patronymic = this.randomPatronymic();
+        this.person.job = this.randomJob();
+        this.person.birth = this.randomDateOfBirth();
         return this.person;
     }
 };
+

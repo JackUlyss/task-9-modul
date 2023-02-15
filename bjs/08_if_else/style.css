@@ -2,3 +2,30 @@
     height: 100vh;
     font-family: 'Open Sans', monospace;
 }
+
+.card-header {
+    background-color: rgb(255, 80, 80);
+}
+
+.card-start {
+    background-color: rgb(255, 80, 80);
+    height: auto;
+    width: auto;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+button.btn-start {
+    margin-top: 10px;
+    border-width: 1px;
+    padding: 1px 7px 2px;
+    border-radius: 5px;
+}
+
+input {
+    border-radius: 5px;
+}
+
+p.text-1 {
+    padding-top: 5px
+}
