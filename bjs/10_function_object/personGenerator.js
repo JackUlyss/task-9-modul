@@ -50,21 +50,6 @@ const personGenerator = {
             "id_10": "Алиса"
         }
     }`,
-    patronymicJson: `{
-        "count": 10,
-        "list": {     
-            "id_1": "Александров",
-            "id_2": "Максимов",
-            "id_3": "Иванов",
-            "id_4": "Артемов",
-            "id_5": "Дмитриев",
-            "id_6": "Никитов",
-            "id_7": "Михайлов",
-            "id_8": "Даниилов",
-            "id_9": "Егоров",
-            "id_10": "Андреев"
-        }
-    }`,
     maleJobJson: `{
         "count": 5,
         "list": {
@@ -137,14 +122,39 @@ const personGenerator = {
 
     randomPatronymic: function () {
 
-        if (this.person.gender === this.GENDER_MALE) {
+        let patronymic = this.randomValue(this.firstNameMaleJson)
 
-            return this.randomValue(this.patronymicJson)+'ич';
+        if (this.person.gender === this.GENDER_MALE) {
+            
+            if (patronymic.includes('й', patronymic.length - 1)) {
+
+                return patronymic.slice(0, -1)+'евич';
+
+            } else if (patronymic.includes('а', patronymic.length - 1)) {
+
+                return patronymic.slice(0, -1)+'ич';
+
+            } else {
+                
+                return patronymic+'ович'
+
+            }
     
         } else {
-    
-            return this.randomValue(this.patronymicJson)+'нa'
-            
+
+            if (patronymic.includes('й', patronymic.length - 1)) {
+
+                return patronymic.slice(0, -1)+'евна';
+
+            } else if (patronymic.includes('а', patronymic.length - 1)) {
+
+                return patronymic.slice(0, -1)+'ична';
+
+            } else {
+                
+                return patronymic+'овна'
+
+            }
         }
     },
 
